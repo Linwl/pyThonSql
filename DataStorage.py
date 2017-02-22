@@ -3,7 +3,7 @@
 
 import pymssql
 
-class SqlServer:
+class DbHelper:
     """
        对pymssql的简单封装
        pymssql库，该库到这里下载：http://www.lfd.uci.edu/~gohlke/pythonlibs/#pymssql
@@ -26,7 +26,7 @@ class SqlServer:
         try:
             self.conn = pymssql.connect(host=self.host, user=self.user, password=self.pwd, database=self.db,charset="utf8")
         except Exception, e:
-            print '数据库链接错误:\t', e.message
+            print '数据库连接错误:\t', e.message
         cur = self.conn.cursor()
         if not cur:
             raise ("连接数据库失败!")
@@ -52,7 +52,7 @@ class SqlServer:
         self.conn.close()
 
 def main():
-    ss = SqlServer(host="61.142.204.26:1433", user="sa", pwd="hodi", db="Epcloud")
+    ss = DbHelper(host="61.142.204.26:1433", user="sa", pwd="hodi", db="Epcloud")
     data = ss.ExecQuery("Select * From Park")
     for row in data:
         print "parkid","物业编号"
