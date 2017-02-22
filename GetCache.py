@@ -81,9 +81,17 @@ class RedisHelper:
         except Exception, exception:
             print exception
 
+    # 删除指定key
+    def remove(self, key):
+        try:
+            re = self.__GetConnect()
+            return re.delete(key)
+        except Exception, exception:
+            print exception
 def main():
     ss = RedisHelper(host="61.142.204.26",port="6602")
     print ss.GetBbsiza()
+    #ss.remove("1")
     # ss.clear()
 
 if __name__ == '__main__':
