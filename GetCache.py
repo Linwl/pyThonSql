@@ -66,11 +66,20 @@ class RedisHelper:
             print exception
 
     #利用list设置redis缓存
-    def SetLpush(self,lstName,values):
+    def SetLpush(self,lstName,*values):
         try:
             re = self.__GetConnect()
-            return re.lpush(lstName,values)
-        except Exception, exception:
+            return re.lpush(lstName, values)
+        except Exception,exception:
+            print exception
+
+
+    # 分段获取列表值
+    def Getlrange(self, lstName,stratIndex,endIndex):
+         try:
+            re = self.__GetConnect()
+            return re.lrange(lstName, stratIndex,endIndex)
+         except Exception, exception:
             print exception
 
     #清空缓存
@@ -91,8 +100,10 @@ class RedisHelper:
 def main():
     ss = RedisHelper(host="61.142.204.26",port="6602")
     print ss.GetBbsiza()
+    print ss.Getlrange("2",0,1)
+    #ss.SetLpush("2",["4","d"])
     #ss.remove("1")
-    # ss.clear()
+    #ss.clear()
 
 if __name__ == '__main__':
     main()
